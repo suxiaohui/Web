@@ -1,0 +1,15 @@
+
+@import "inc.all.less";
+
+.gp-bd{
+  .f-oh;padding: 26px 30px;
+  li{.f-fl;width: 190px;height: 210px;margin: 0 24px 24px 0;position: relative;border: transparent 1px solid;
+    .gp-cover{.img-bg(@group-bg);.size(150px);position: absolute;left:50%;margin-left:-75px;top:18px;
+      img{.size(135px);margin-top: 6px;}
+      .group{position: absolute;left:6px;top:0px;}
+      .play{position: absolute;right:6px;bottom:6px;}
+    }
+    .gp-title{position: absolute;left:0;bottom:0;.height(30px);width: 100%;font-size: 16px;color: @color-fff}
+  }
+  li:hover, li.sel{border:#888 1px solid;background: #333;}
+}

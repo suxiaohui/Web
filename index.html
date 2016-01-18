@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet/less" href="css/p.all.less" type="text/css" />
+</head>
+<body>
+    <div id="head" class="g-hd"></div>
+    <div id="side" class="g-sd"></div>
+    <div id="main" class="g-mn"></div>
+</body>
+<script src="js/lib/less.min.js" type="text/javascript"></script>
+<script src="js/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js/lib/underscore-min.js" type="text/javascript"></script>
+<script src="js/lib/backbone-min.js" type="text/javascript"></script>
+<script src="js/lib/require-min.js" type="text/javascript"></script>
+<script src="js/lib/algor.min.js" type="text/javascript"></script>
+<script src="js/app/util.js" type="text/javascript"></script>
+<script src="js/app/sdk.js" type="text/javascript"></script>
+<script>
+    requirejs.config({
+        baseUrl: 'js',
+        config: {
+            moment: { noGlobal: true }
+        },
+        paths: {
+            "moment": "lib/moment-with-locales.min"
+        }
+    })
+</script>
+<script>
+    require(['page/index'], function(p){
+        p.init();
+    })
+</script>
+<script type="text/template" id="tpl-u-win">
+    <div class="u-win-mask"></div>
+    <div class="u-win j-win">
+        <i class="ico ico-close ico-hover u-win-close j-win-close"></i>
+        {% if(hideHd == 0) { %}<div class="u-win-hd"></div>{% } %}
+        <div class="u-w-bd j-win-con"></div>
+    </div>
+</script>
+<script type="text/template" id="tpl-hd">
+    <div class="m-logo"></div>
+    <div class="m-line"></div>
+    <div class="m-history">
+        <i class="ico ico-back"></i>
+        <i class="ico ico-next"></i>
+    </div>
+    <div class="m-search">
+        <i class="ico ico-search"></i>
+        <input type="text" class="" placeholder="搜索设备、序列号"/>
+    </div>
+
+    <div class="m-mx">
+        <i class="ico ico-min"></i>
+        <i class="ico ico-max"></i>
+        <i class="ico ico-close"></i>
+    </div>
+    <div class="m-line2"></div>
+    <div class="m-config">
+        <i class="ico ico-config"></i>
+    </div>
+    <div class="m-msg">
+        <i class="ico ico-msg">
+            <i class="have"></i>
+        </i>
+    </div>
+    <div class="m-user">
+        <img src="img/conmmon_icon_headportrait_n.png" class="m-user-avatar" />
+        igaoyun
+    </div>
+</script>
+<script type="text/template" id="tpl-sd">
+    <div class="g-sd-bd">
+        <div class="g-sd-item">
+            <div class="g-sd-item-in j-side" data-hash="home">
+                <i class="ico ico-home ico-36"></i>
+                首页
+            </div>
+        </div>
+        <div class="g-sd-item">
+            <div class="g-sd-item-in j-side" data-hash="group">
+                <i class="ico ico-group ico-36"></i>
+                分组
+            </div>
+            <div class="g-sd-child-wp" id="sideGroup">
+
+            </div>
+        </div>
+    </div>
+    <div class="g-sd-ft">
+        <ul>
+            <li class="j-side" data-hash="file-img">
+                <i class="ico ico-file ico-40"></i>
+                <p>我的文件</p>
+            </li>
+            <li class="j-side" data-hash="friend">
+                <i class="ico ico-friend ico-40"></i>
+                <p>好友列表</p>
+            </li>
+            <li class="j-side" data-hash="device">
+                <i class="ico ico-device ico-40"></i>
+                <p>设备管理</p>
+            </li>
+        </ul>
+    </div>
+</script>
+<script type="text/template" id="tpl-sd-group">
+    <ul class="g-sd-child">
+        {% for(var i=0;i<list.length;i++){
+            var o = list[i];
+        %}
+            <li class="j-side" data-hash="video/{%= o.id %}" data-id="{%= o.id %}">{%= o.name %}</li>
+        {% } %}
+    </ul>
+</script>
+<script type="text/template" id="tpl-home">
+    <div class="hm-hd">
+        <div class="hm-hd-tab">
+            <a href="#home" class="now">设备</a>
+            <a href="#group">分组</a>
+        </div>
+
+        <div class="hm-hd-btn">
+            <button class="u-btn u-b-none" id="refresh"><i class="ico ico-refresh"></i>刷新</button>
+            <button class="u-btn u-b-none j-add"><i class="ico ico-add"></i>添加设备</button>
+        </div>
+    </div>
+    <div class="hm-bd">
+        {% if(n == 0){ %}
+            <div class="hm-none">
+                <p>什么都没有，马上<a href="javascript://" class="a-base a-line j-add">添加</a>设备吧！</p>
+            </div>
+        {% }else{ %}
+            <ul>
+                {% for(var i=0;i<n;i++){ %}
+                <li class="j-play">
+                    <img class="img" src="img/common_cover.png" />
+                    <div class="hm-item-info">
+                        <i class="ico ico-share-in ico-20"></i>
+                        <i class="ico ico-share-out ico-20"></i>
+                    </div>
+                    <div class="hm-item-alarm">
+                        <i class="ico ico-alarm ico-20"></i>
+                    </div>
+                    <div class="hm-item-play"></div>
+                    <div class="hm-item-off">离线</div>
+                    <div class="hm-item-btn">
+                        <button class="u-btn u-b-radius">报警录像</button>
+                    </div>
+                    <div class="hm-item-mask"></div>
+                    <div class="hm-item-title">乐晓萌的共享</div>
+                </li>
+                {% } %}
+            </ul>
+        {% } %}
+    </div>
+    <div id="device-render"></div>
+</script>
+
+<script type="text/template" id="tpl-group">
+    <div class="hm-hd">
+        <div class="hm-hd-tab">
+            <a href="#home">设备</a>
+            <a href="#group" class="now">分组</a>
+        </div>
+
+        <div class="hm-hd-btn">
+            <button class="u-btn u-b-none" id="refresh"><i class="ico ico-refresh"></i>刷新</button>
+            <button class="u-btn u-b-none j-add"><i class="ico ico-add"></i>添加分组</button>
+        </div>
+    </div>
+    <div class="gp-bd">
+        {% if(n == 0){ %}
+            <div class="hm-none">
+                <p>什么都没有，马上<a href="javascript://" class="a-base a-line j-add">添加</a>分组吧！</p>
+            </div>
+        {% }else{ %}
+            <ul>
+                {% for(var i=0;i<n;i++){ %}
+                <li data-id="{%= i %}">
+                    <div class="gp-cover">
+                        <i class="ico ico-group-device ico-50 group"></i>
+                        <i class="ico ico-play2 ico-50 play"></i>
+                        <img src="img/common_cover.png" />
+                    </div>
+                    <div class="gp-title">服装店</div>
+                </li>
+                {% } %}
+            </ul>
+        {% } %}
+    </div>
+</script>
+
+<script type="text/template" id="tpl-group-detail">
+    <div class="hm-hd">
+        <div class="hm-hd-title">分组标题</div>
+        <div class="hm-hd-btn">
+            <button class="u-btn u-b-none" id="refresh"><i class="ico ico-refresh"></i>刷新</button>
+            <button class="u-btn u-b-none j-add"><i class="ico ico-add"></i>添加视频</button>
+        </div>
+    </div>
+    <div class="hm-bd">
+        {% if(n == 0){ %}
+        <div class="hm-none">
+            <p>什么都没有，马上<a href="javascript://" class="a-base a-line j-add">添加</a>视频吧！</p>
+        </div>
+        {% }else{ %}
+        <ul>
+            {% for(var i=0;i<n;i++){ %}
+            <li>
+                <img class="img" src="img/common_cover.png" />
+                <div class="hm-item-info">
+                    <i class="ico ico-share-in ico-20"></i>
+                    <i class="ico ico-share-out ico-20"></i>
+                </div>
+                <div class="hm-item-alarm">
+                    <i class="ico ico-alarm ico-20"></i>
+                </div>
+                <div class="hm-item-play"></div>
+                <div class="hm-item-off">离线</div>
+                <div class="hm-item-btn">
+                    <button class="u-btn u-b-radius">本地录像</button>
+                    <button class="u-btn u-b-radius">云端录像</button>
+                </div>
+                <div class="hm-item-title">乐晓萌的共享</div>
+            </li>
+            {% } %}
+        </ul>
+        {% } %}
+    </div>
+    <div id="deviceRender"></div>
+</script>
+
+<script type="text/template" id="tpl-file-img">
+    <div class="hm-hd">
+        <div class="fg-selectAll">
+            <input type="checkbox"/><label for="">全选</label>
+        </div>
+        <div class="hm-hd-tab">
+            <a href="#file-img" class="now">图片</a>
+            <a href="#file-video">视频</a>
+        </div>
+
+        <div class="hm-hd-btn">
+            <button class="u-btn u-b-none j-add"><i class="ico ico-delete"></i>删除</button>
+        </div>
+    </div>
+    <div class="fg-bd">
+        {% if(n == 0){ %}
+        <div class="fg-img-none">
+            <p>暂无图片</p>
+        </div>
+        {% }else{ %}
+        <p class="f-txt-lt f-pb5">今天</p>
+        <ul>
+            {% for(var i=0;i<n;i++){ %}
+            <li>
+                <div>
+                    <img src="img/file-img1.png" />
+                </div>
+            </li>
+            {% } %}
+        </ul>
+        <p class="f-txt-lt f-pb5">昨天</p>
+        <ul>
+            {% for(var i=0;i<n;i++){ %}
+            <li>
+                <div>
+                    <img src="img/file-img1.png" />
+                </div>
+            </li>
+            {% } %}
+        </ul>
+        {% } %}
+    </div>
+    <div id="img-render"></div>
+</script>
+<script type="text/template" id="tpl-img-view">
+    <div class="img-hd">
+        <span class="f-pl64">图片名称图片名称图片名称图片名称图片名称</span><input type="text" value="" class="j-txt-imgTit" style="display: none"/><i class="ico ico-50 ico-edit f-ml64 j-btn-edit"></i>
+    </div>
+    <div class="img-bd">
+        <img src="" alt="显示图片" width="968" height="548"/>
+    </div>
+</script>
+<script type="text/template" id="tpl-file-video">
+    <div class="hm-hd">
+        <div class="fg-selectAll">
+            <input type="checkbox"/><label for="">全选</label>
+        </div>
+        <div class="hm-hd-tab">
+
+            <a href="#file-img">图片</a>
+            <a href="#file-video" class="now">视频</a>
+        </div>
+
+        <div class="hm-hd-btn">
+            <button class="u-btn u-b-none j-add"><i class="ico ico-delete"></i>删除</button>
+        </div>
+    </div>
+    <div class="fg-bd">
+        {% if(n == 0){ %}
+        <div class="fg-video-none">
+            <p>暂无视频</p>
+        </div>
+        {% }else{ %}
+        <p class="f-txt-lt f-pb5">今天</p>
+        <ul>
+            {% for(var i=0;i<n;i++){ %}
+            <li>
+                <div class="fg-vd">
+                    <i class="txt-lt">20:10:24</i>
+                    <i class="txt-rt">112分12秒</i>
+                    <img src="img/file-img1.png" />
+                </div>
+            </li>
+            {% } %}
+        </ul>
+        <p class="f-txt-lt f-pb5">昨天</p>
+        <ul>
+            {% for(var i=0;i<n;i++){ %}
+            <li>
+                <div class="fg-vd">
+                    <i class="txt-lt">20:10:24</i>
+                    <i class="txt-rt">112分12秒</i>
+                    <img src="img/file-img1.png" />
+                </div>
+            </li>
+            {% } %}
+        </ul>
+        {% } %}
+    </div>
+</script>
+
+<script type="text/template" id="tpl-video">
+    <div class="vd-ocx" id="videoOcx"></div>
+    <div class="vd-list" id="videoGroup">
+        <div class="vd-list-hd" id="videoFilter"></div>
+        <div class="vd-list-bd" id="videoList"></div>
+    </div>
+    <div class="vd-bar">
+        <div class="vd-bar-action"></div>
+        <div class="vd-bar-screen"></div>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-device-add">
+    <div class="g-device-wrap">
+        <div class="m-dc-hd">
+            <h1>设备添加</h1>
+        </div>
+        <div class="m-dc-bd">
+            <div class="m-dc-tab">
+                <ul>
+                    <li class="u-btn-selected"><a href="javascript://" class="j-btn-lanAdd">局域网扫描添加</a></li>
+                    <li><a href="javascript://" class="j-btn-seriesAdd">设备序列号添加</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-dc-add-wrap" id="dc-add"></div>
+    </div>
+</script>
+<script type="text/template" id="tpl-device-lan">
+    <div class="m-device-lan-list" id="lan-list">
+        <div class="m-lan-st">
+            <div class="m-st-lan-sc">
+                <p class="u-dc-tip f-pt70">请保持设备与本机保持在同一个局域网内</p>
+            </div>
+            <div class="m-w-foot">
+                <a href="javascript://" class="u-btn-w-large j-lan-sec-st">开始搜索</a>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="tpl-device-lan-searching">
+    <div class="m-lan-sh">
+
+        <p>搜索中。。。</p>
+        <div class="m-w-foot">
+            <a href="javascript://" class="u-btn-w-large j-lan-stop">停止搜索</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-device-lan-list">
+    <div class="m-lan-su">
+        <p class="f-txt-lt f-pl20"><label for=""><input type="checkbox" class="f-mr24"/>全选</label></p>
+        <ul>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+        </ul>
+    </div>
+    <div class="m-lan-null" style="display: none">
+        <p class="u-dc-tip f-pt220 f-pb100">无设备<br/>请确保设备上电并与本机在同一局域网内</p>
+    </div>
+    <div class="m-w-foot">
+        <a href="javascript://" class="u-btn-w-small">刷新搜索</a>
+        <a href="javascript://" class="u-btn-w-grey u-btn-w-small f-ml64">添加至当前账号</a>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-device-series">
+    <p class="f-pt70 f-pr m-btn-search"><input type="text" class="u-txt-series-sh" placeholder="输入序列号"/><a href="javascript://" class="ico ico-40 ico-search j-series-find"></a></p>
+    <div class="m-series-st">
+        <div class="m-dv-series-wrap">
+            <p class="u-dc-tip f-pt70">请在设备背后或底部找到序列号</p>
+        </div>
+        <div class="m-w-foot">
+        </div>
+    </div>
+    <div id="dc-series-result" class="m-series-list"></div>
+</script>
+
+<script type="text/template" id="tpl-device-series-success">
+    <div class="m-dc-series-success">
+        <p class="u-dc-tip f-pt220 f-pb100">设备添加成功<br/>请在主页或设备管理中查看新增设备</p>
+    </div>
+    <div class="m-w-foot">
+        <a href="javascript://" class="u-btn-w-small j-series-add-goOn">继续添加</a>
+        <a href="javascript://" class="u-btn-w-small f-ml64">确定</a>
+    </div>
+</script>
+
+</html>

@@ -1,0 +1,108 @@
+
+@import "inc.private.less";
+
+@ico-close: replace("{n}/img/ico-close.png", "{n}", @g-img-url);
+@ico-user: replace("{n}/img/ico-user.png", "{n}", @g-img-url);
+@ico-pwd: replace("{n}/img/ico-pwd.png", "{n}", @g-img-url);
+@ico-min: replace("{n}/img/ico-min.png", "{n}", @g-img-url);
+@ico-max: replace("{n}/img/conmmon_icon_max_n.png", "{n}", @g-img-url);
+@ico-code: replace("{n}/img/ico-code.png", "{n}", @g-img-url);
+@ico-ok: replace("{n}/img/ico-ok.png", "{n}", @g-img-url);
+@ico-warn: replace("{n}/img/ico-warn.png", "{n}", @g-img-url);
+@ico-more: replace("{n}/img/ico-more.png", "{n}", @g-img-url);
+@ico-file: replace("{n}/img/ico-file.png", "{n}", @g-img-url);
+@ico-friend: replace("{n}/img/come_icon_friends_n.png", "{n}", @g-img-url);
+@ico-device: replace("{n}/img/come_icon_dev_n.png", "{n}", @g-img-url);
+@ico-back: replace("{n}/img/common_icon_back_d.png", "{n}", @g-img-url);
+@ico-next: replace("{n}/img/common_icon_forward_d.png", "{n}", @g-img-url);
+@ico-config: replace("{n}/img/conmmon_icon_setting_n.png", "{n}", @g-img-url);
+@ico-msg: replace("{n}/img/conmmon_icon_message_n.png", "{n}", @g-img-url);
+@ico-home: replace("{n}/img/come_icon_home_n.png", "{n}", @g-img-url);
+@ico-home-h:replace("{n}/img/come_icon_home_h.png", "{n}", @g-img-url);
+@ico-group: replace("{n}/img/come_icon_group_n.png", "{n}", @g-img-url);
+@ico-group-h:replace("{n}/img/come_icon_group_h.png", "{n}", @g-img-url);
+@ico-play: replace("{n}/img/home_icon_btn_h.png", "{n}", @g-img-url);
+@ico-play2:replace("{n}/img/home_group_iocn_play_h.png", "{n}", @g-img-url);
+@ico-share-in: replace("{n}/img/home_icon_share_in_n.png", "{n}", @g-img-url);
+@ico-share-out: replace("{n}/img/home_icon_share_out_n.png", "{n}", @g-img-url);
+@ico-alarm: replace("{n}/img/home_icon_alarmplan_on_n.png", "{n}", @g-img-url);
+@ico-refresh: replace("{n}/img/home_refresh_n.png", "{n}", @g-img-url);
+@ico-add: replace("{n}/img/home_add_n.png", "{n}", @g-img-url);
+@ico-delete: replace("{n}/img/doc_delet_n.png", "{n}", @g-img-url);
+@ico-group-device: replace("{n}/img/home_group_device.png", "{n}", @g-img-url);
+
+@login-avatar: replace("{n}/img/avatar.png", "{n}", @g-img-url);
+@login-cover: replace("{n}/img/login_bg.png", "{n}", @g-img-url);
+
+@dc-img1: replace("{n}/img/adddevice_scanning_diagram.png", "{n}", @g-img-url);
+@dc-img2: replace("{n}/img/adddevice_scanning_searchbg.png", "{n}", @g-img-url);
+@ico-search: replace("{n}/img/common_icon_search_n.png", "{n}", @g-img-url);
+@dc-img3: replace("{n}/img/adddevice_xuliehao_diagram.png", "{n}", @g-img-url);
+@pop-win-img:replace("{n}/img/pop-win-bg.png", "{n}", @g-img-url);
+@g-logo: replace("{n}/img/logo.png", "{n}", @g-img-url);
+@g-logo2: replace("{n}/img/logo2.png", "{n}", @g-img-url);
+@ico-ss: replace("{n}/img/video_icon_takevideo_disable.png", "{n}", @g-img-url);
+@ico-l-n:replace("{n}/img/adddevice_scanning_nodevice.png", "{n}", @g-img-url);
+@group-bg: replace("{n}/img/common_icon_group.png", "{n}", @g-img-url);
+@no-device:replace("{n}/img/common_nodevice.png", "{n}", @g-img-url);
+@no-img:replace("{n}/img/doc_wutupian.png", "{n}", @g-img-url);
+@no-video:replace("{n}/img/doc_wushipin.png", "{n}", @g-img-url);
+@ico-edit:replace("{n}/img/adddevice_scanning_edit_n.png", "{n}", @g-img-url);
+
+.g-logo {.img-bg(@g-logo);width:50px;height: 34px;}
+.g-logo2 {.img-bg(@g-logo2);width:76px;height: 50px;}
+
+@color-base: #fc7205;
+@color-gray: #bfbfbf;
+@color-err: #fa2306;
+@color-base2: #303235;
+@color-w-bg: #1d1e20;
+@color-fff: #fff;
+@color-333: #333;
+@color-font: #b0afaf;
+@color-txt:#515151;
+@color-bg:#202224;
+
+
+@font-base: "Oxygen",Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","STHeiti","ËÎÌו", simsun, "sans serif";
+
+@login-bg: #dfebed;
+@login-width: 330px;
+@login-height: 500px;
+
+@hd-height: 60px;
+@sd-width: 210px;
+
+@input-h1: 40px;
+@input-h2: 35px;
+
+.img-bg(@url,@position:center){background: url(@url) no-repeat @position;}
+
+.size (@n){width: @n;height: @n;}
+.size-win (@n){width: 968px * @n; height: 598px * @n;}
+.font-size(@n){font-size: @n}
+.border-radius (@n){
+  -webkit-border-radius: @n;
+  -moz-border-radius: @n;
+  border-radius: @n;
+}
+.transition(@prop: all, @time: .3s){
+  -webkit-transition: @prop @time;
+  -moz-transition: @prop @time;
+  -o-transition: @prop @time;
+  transition: @prop @time;
+}
+.height(@h){height: @h;line-height: @h;}
+
+
+
+
+
+.a-base{.transition()}
+.a-base:link, .a-base:visited{color: @color-base;}
+.a-base:hover{color: lighten(color(@color-base), 18%)}
+.a-base:active{color: darken(color(@color-base), 10%)}
+
+.a-line:link{text-decoration: underline;}
+
+.a-under:link{color: @color-333;text-decoration: underline; }

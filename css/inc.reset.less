@@ -1,0 +1,44 @@
+
+@import "inc.base.less";
+
+*{margin:0; padding:0;box-sizing: border-box;}
+*, *:active, *:focus{outline: 0 none;}
+
+body {
+  color: #333;
+  background: #fff;
+  .font-size(14px);
+  font-family: @font-base;
+  text-align:center;
+  overflow-y: scroll;
+}
+img{border: none;}
+ul,li{list-style: none;}
+input, label, select, option, textarea, fieldset, legend{font-family: @font-base;}
+textarea{resize: none;overflow: auto}
+i,em{font-style: normal;}
+th, td{text-align: left;}
+
+a:link,a:visited{text-decoration: none;}
+a:hover{text-decoration: none;color: #00adee}
+
+code,.hide{display: none;}
+
+input[type='text'], input[type='password']{
+  height: @input-h1;
+  line-height: @input-h1 - 1;
+  padding: 0 @input-h1/2;
+  .border-radius(@input-h1/2);
+  .transition();
+  font-size: 15px;
+  border: #ccc 1px solid;
+  vertical-align: baseline;
+
+}
+input[type='text']:hover, input[type='password']:hover{
+  box-shadow: 0 0 6px rgba(200,229,253,1);
+}
+
+input[type="radio"], input[type='checkbox']{margin-right: 2px;width: 18px;height: 18px;vertical-align: middle;}
+select{cursor: pointer;height: 34px;font-size:15px;border-radius: 3px;padding: 0 4px;}
+select:hover{border:#369 1px solid;}

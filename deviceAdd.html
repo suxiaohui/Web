@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet/less" href="css/p.index.less" type="text/css" />
+</head>
+<body>
+    <div id="device-render" class=""></div>
+</body>
+<script src="js/lib/less.min.js" type="text/javascript"></script>
+<script src="js/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js/lib/underscore-min.js" type="text/javascript"></script>
+<script src="js/lib/backbone-min.js" type="text/javascript"></script>
+<script src="js/lib/require-min.js" type="text/javascript"></script>
+<script src="js/lib/algor.min.js" type="text/javascript"></script>
+<script src="js/app/util.js" type="text/javascript"></script>
+<script src="js/app/sdk.js" type="text/javascript"></script>
+<script>
+    requirejs.config({
+        baseUrl: 'js',
+        config: {
+            moment: { noGlobal: true }
+        },
+        paths: {
+            "moment": "lib/moment-with-locales.min"
+        }
+    })
+</script>
+
+<script>
+    require(['page/deviceAdd'], function(p){
+        p.init();
+    })
+
+</script>
+
+<script type="text/template" id="tpl-device-add">
+    <div class="g-device-wrap">
+        <div class="m-dc-hd">
+            <h1>设备添加</h1>
+            <i class="ico ico-close ico-hover"></i>
+        </div>
+        <div class="m-dc-bd">
+            <div class="m-dc-tab">
+                <ul>
+                    <li class="u-btn-selected"><a href="javascript://" class="j-btn-lanAdd">局域网扫描添加</a></li>
+                    <li><a href="javascript://" class="j-btn-seriesAdd">设备序列号添加</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-dc-add-wrap" id="dc-add"></div>
+    </div>
+</script>
+<script type="text/template" id="tpl-device-lan">
+    <div class="m-device-lan-list" id="lan-list">
+        <div class="m-lan-st">
+            <div class="m-st-lan-sc">
+                <p class="u-dc-tip f-pt70">请保持设备与本机保持在同一个局域网内</p>
+            </div>
+            <div class="m-w-foot">
+                <a href="javascript://" class="u-btn-w-large j-lan-sec-st">开始搜索</a>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="tpl-device-lan-searching">
+    <div class="m-lan-sh">
+
+        <p>搜索中。。。</p>
+        <div class="m-w-foot">
+            <a href="javascript://" class="u-btn-w-large j-lan-stop">停止搜索</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-device-lan-list">
+    <div class="m-lan-su">
+        <p class="f-txt-lt f-pl20"><label for=""><input type="checkbox" class="f-mr24"/>全选</label></p>
+        <ul>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+            <li><label for=""><input type="checkbox" class="f-mr24"/>IPC22205454</label></li>
+        </ul>
+    </div>
+    <div class="m-lan-null" style="display: none">
+        <p class="u-dc-tip f-pt220 f-pb100">无设备<br/>请确保设备上电并与本机在同一局域网内</p>
+    </div>
+    <div class="m-w-foot">
+        <a href="javascript://" class="u-btn-w-small">刷新搜索</a>
+        <a href="javascript://" class="u-btn-w-grey u-btn-w-small f-ml64">添加至当前账号</a>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-device-series">
+    <p class="f-pt70 f-pr m-btn-search"><input type="text" class="u-txt-series-sh" placeholder="输入序列号"/><a href="javascript://" class="ico ico-40 ico-search j-series-find"></a></p>
+    <div class="m-series-st">
+        <div class="m-dv-series-wrap">
+            <p class="u-dc-tip f-pt70">请在设备背后或底部找到序列号</p>
+        </div>
+        <div class="m-w-foot">
+        </div>
+    </div>
+    <div id="dc-series-result" class="m-series-list"></div>
+</script>
+
+<script type="text/template" id="tpl-device-series-success">
+    <div class="m-dc-series-success">
+        <p class="u-dc-tip f-pt220 f-pb100">设备添加成功<br/>请在主页或设备管理中查看新增设备</p>
+    </div>
+    <div class="m-w-foot">
+        <a href="javascript://" class="u-btn-w-small j-series-add-goOn">继续添加</a>
+        <a href="javascript://" class="u-btn-w-small f-ml64">确定</a>
+    </div>
+</script>
+</html>
